@@ -1,53 +1,203 @@
-# React + TypeScript + Vite
+# 💬 SageChat
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Una aplicación de chat moderna y elegante construida con React, TypeScript y Firebase, con un hermoso diseño en tonos sage green.
 
-Currently, two official plugins are available:
+![SageChat](https://img.shields.io/badge/Version-0.0.0-5E8175?style=for-the-badge)
+![React](https://img.shields.io/badge/React-19.2.0-61DAFB?style=for-the-badge&logo=react)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-3178C6?style=for-the-badge&logo=typescript)
+![Firebase](https://img.shields.io/badge/Firebase-12.8.0-FFCA28?style=for-the-badge&logo=firebase)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Características
 
-## React Compiler
+- 🔐 **Autenticación con Google** - Login seguro usando Firebase Authentication
+- 💬 **Chat en tiempo real** - Mensajería instantánea con Firestore
+- 🎨 **Diseño elegante** - UI moderna con paleta de colores sage green
+- 📱 **Responsive** - Adaptado para móviles, tablets y desktop
+- ⚡ **Rápido** - Construido con Vite para desarrollo y compilación ultrarrápida
+- 🎯 **Type-safe** - TypeScript para un código más robusto y mantenible
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+## 🎨 Paleta de Colores
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```css
+Primary: #5E8175     /* Dark Sage */
+Secondary: #9FBDAF   /* Medium Sage */
+Accent: #D2E4DD      /* Light Sage */
+Background: #F3F9F6  /* Soft Mint */
+Sidebar: #EBF5F1     /* Light Mint */
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🚀 Inicio Rápido
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
+### Prerequisitos
+
+- Node.js 18+ 
+- npm o yarn
+- Cuenta de Firebase
+
+### Instalación
+
+1. **Clona el repositorio**
+   ```bash
+   git clone https://github.com/tuusuario/sagechat.git
+   cd sagechat
+   ```
+
+2. **Instala las dependencias**
+   ```bash
+   npm install
+   ```
+
+3. **Configura Firebase**
+   
+   Crea un archivo `.env` en la raíz del proyecto:
+   ```env
+   VITE_FIREBASE_API_KEY=tu_api_key
+   VITE_FIREBASE_AUTH_DOMAIN=tu_auth_domain
+   VITE_FIREBASE_PROJECT_ID=tu_project_id
+   VITE_FIREBASE_STORAGE_BUCKET=tu_storage_bucket
+   VITE_FIREBASE_MESSAGING_SENDER_ID=tu_sender_id
+   VITE_FIREBASE_APP_ID=tu_app_id
+   ```
+
+4. **Inicia el servidor de desarrollo**
+   ```bash
+   npm run dev
+   ```
+
+5. **Abre tu navegador en** `http://localhost:5173`
+
+## 📦 Scripts Disponibles
+
+```bash
+npm run dev      # Inicia el servidor de desarrollo
+npm run build    # Compila la aplicación para producción
+npm run preview  # Previsualiza la build de producción
+npm run lint     # Ejecuta el linter
+```
+
+## 🛠️ Tecnologías
+
+### Frontend
+- **React 19.2.0** - Biblioteca de UI
+- **TypeScript 5.9.3** - Tipado estático
+- **Vite 7.2.4** - Build tool y dev server
+- **Tailwind CSS 4.1.18** - Framework de CSS utility-first
+- **React Router 7.12.0** - Enrutamiento
+
+### Backend & Servicios
+- **Firebase 12.8.0**
+  - Authentication - Autenticación con Google
+  - Firestore - Base de datos en tiempo real
+  - Hosting - Despliegue de la aplicación
+
+### Utilidades
+- **react-firebase-hooks** - Hooks para Firebase
+- **Material Icons** - Iconografía
+
+## 📁 Estructura del Proyecto
+
+```
+sagechat/
+├── public/              # Archivos estáticos
+├── src/
+│   ├── assets/         # Imágenes y recursos
+│   ├── components/     # Componentes de React
+│   │   ├── Chat.tsx           # Componente principal del chat
+│   │   ├── Login.tsx          # Pantalla de login
+│   │   ├── Logout.tsx         # Componente de logout
+│   │   ├── Message.tsx        # Área de mensajes
+│   │   ├── PanelUsers.tsx     # Panel lateral de usuarios
+│   │   └── SendMessages.tsx   # Formulario de envío
+│   ├── services/       # Servicios (Firebase config)
+│   ├── types/          # Tipos de TypeScript
+│   ├── App.tsx         # Componente raíz
+│   ├── main.tsx        # Punto de entrada
+│   └── index.css       # Estilos globales
+├── index.html
+├── package.json
+├── tsconfig.json
+└── vite.config.ts
+```
+
+## 🎯 Características Principales
+
+### Autenticación
+- Login con cuenta de Google mediante Firebase Authentication
+- Redirección automática basada en el estado de autenticación
+- Persistencia de sesión
+
+### Panel de Usuarios
+- Lista de conversaciones con estado (activo/inactivo)
+- Sección de conversaciones fijadas
+- Búsqueda de mensajes
+- Perfil de usuario con estado en línea
+
+### Área de Chat
+- Interfaz limpia y moderna
+- Barra de herramientas (llamada, videollamada, más opciones)
+- Área de mensajes con scroll
+- Input de mensaje con opciones de adjuntos y emojis
+- Indicador de "escribiendo..."
+
+## 🎨 Personalización
+
+### Colores
+
+Los colores están definidos en `src/index.css` usando custom properties de CSS:
+
+```css
+@theme {
+  --color-primary: #5E8175;
+  --color-secondary: #9FBDAF;
+  --color-accent: #D2E4DD;
+  --color-background-light: #F3F9F6;
+  --color-sidebar-light: #EBF5F1;
+}
+```
+
+### Fuentes
+
+El proyecto usa **Inter** de Google Fonts. Puedes cambiarla en `index.html` y `index.css`.
+
+## 🚧 Roadmap
+
+- [ ] Implementar envío de mensajes en tiempo real
+- [ ] Agregar notificaciones push
+- [ ] Soporte para archivos multimedia
+- [ ] Mensajes de voz
+- [ ] Modo oscuro
+- [ ] Reacciones a mensajes
+- [ ] Videollamadas integradas
+- [ ] Grupos de chat
+
+## 🤝 Contribuir
+
+Las contribuciones son bienvenidas! Por favor:
+
+1. Fork el proyecto
+2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
+3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
+4. Push a la rama (`git push origin feature/AmazingFeature`)
+5. Abre un Pull Request
+
+## 📝 Licencia
+
+Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más detalles.
+
+## 👨‍💻 Autor
+
+**Tu Nombre**
+- GitHub: [@tuusuario](https://github.com/tuusuario)
+
+## 🙏 Agradecimientos
+
+- Diseño inspirado en aplicaciones modernas de mensajería
+- Iconos de [Material Icons](https://fonts.google.com/icons)
+- Fuentes de [Google Fonts](https://fonts.google.com/)
+
+---
+
+⭐ Si te gusta este proyecto, dale una estrella en GitHub!
 import reactDom from 'eslint-plugin-react-dom'
 
 export default defineConfig([
