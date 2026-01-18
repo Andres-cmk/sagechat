@@ -170,14 +170,10 @@ Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más det
 **Tu Nombre**
 - GitHub: [@Andres-cmk](https://github.com/Andres-cmk/)
 
-## <img width="512" height="512" alt="image" src="https://github.com/user-attachments/assets/1e18db09-a8a9-4e22-b785-4249791e61f6" />
- Mockups
+## 🎨 Mockups
 
-   <img width="1018" height="813" alt="image" src="https://github.com/user-attachments/assets/8eb8fad9-8bab-4002-80af-32d2be9d478a" />
-   <img width="1016" height="812" alt="image" src="https://github.com/user-attachments/assets/de300bf5-dcdf-4028-bd36-41fba4ad0bc0" />
-
-
-
+   <img width="1000" height="700" alt="image" src="https://github.com/user-attachments/assets/8eb8fad9-8bab-4002-80af-32d2be9d478a" />
+   <img width="1000" height="700" alt="image" src="https://github.com/user-attachments/assets/de300bf5-dcdf-4028-bd36-41fba4ad0bc0" />
 
 ---
 
