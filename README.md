@@ -2,7 +2,7 @@
 
 Una aplicación de chat moderna y elegante construida con React, TypeScript y Firebase, con un hermoso diseño en tonos sage green.
 
-![SageChat](https://img.shields.io/badge/Version-0.0.0-5E8175?style=for-the-badge)
+![SageChat](https://img.shields.io/badge/Version-0.0.1-5E8175?style=for-the-badge)
 ![React](https://img.shields.io/badge/React-19.2.0-61DAFB?style=for-the-badge&logo=react)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-3178C6?style=for-the-badge&logo=typescript)
 ![Firebase](https://img.shields.io/badge/Firebase-12.8.0-FFCA28?style=for-the-badge&logo=firebase)
