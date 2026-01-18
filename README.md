@@ -159,26 +159,7 @@ Los colores están definidos en `src/index.css` usando custom properties de CSS:
 
 El proyecto usa **Inter** de Google Fonts. Puedes cambiarla en `index.html` y `index.css`.
 
-## 🚧 Roadmap
 
-- [ ] Implementar envío de mensajes en tiempo real
-- [ ] Agregar notificaciones push
-- [ ] Soporte para archivos multimedia
-- [ ] Mensajes de voz
-- [ ] Modo oscuro
-- [ ] Reacciones a mensajes
-- [ ] Videollamadas integradas
-- [ ] Grupos de chat
-
-## 🤝 Contribuir
-
-Las contribuciones son bienvenidas! Por favor:
-
-1. Fork el proyecto
-2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
-4. Push a la rama (`git push origin feature/AmazingFeature`)
-5. Abre un Pull Request
 
 ## 📝 Licencia
 
@@ -187,7 +168,7 @@ Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más det
 ## 👨‍💻 Autor
 
 **Tu Nombre**
-- GitHub: [@tuusuario](https://github.com/tuusuario)
+- GitHub: [@Andres-cmk](https://github.com/Andres-cmk/)
 
 ## 🙏 Agradecimientos
 
@@ -199,25 +180,3 @@ Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más det
 
 ⭐ Si te gusta este proyecto, dale una estrella en GitHub!
 import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
