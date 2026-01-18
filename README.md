@@ -178,5 +178,11 @@ Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más det
 
 ---
 
+## Mockups
+<div style = "justify-center" >
+<img width="1018" height="813" alt="image" src="https://github.com/user-attachments/assets/d3bde03f-1ac1-4961-92f4-66494b0167ec" />
+<img width="1016" height="812" alt="image" src="https://github.com/user-attachments/assets/00f6a44b-fb8b-4394-86b4-2124cda7569e" />
+</div>
+
 ⭐ Si te gusta este proyecto, dale una estrella en GitHub!
 import reactDom from 'eslint-plugin-react-dom'
