@@ -170,11 +170,10 @@ Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más det
 **Tu Nombre**
 - GitHub: [@Andres-cmk](https://github.com/Andres-cmk/)
 
-## 🙏 Agradecimientos
+## 🎨 Mockups
 
-- Diseño inspirado en aplicaciones modernas de mensajería
-- Iconos de [Material Icons](https://fonts.google.com/icons)
-- Fuentes de [Google Fonts](https://fonts.google.com/)
+   <img width="1000" height="700" alt="image" src="https://github.com/user-attachments/assets/8eb8fad9-8bab-4002-80af-32d2be9d478a" />
+   <img width="1000" height="700" alt="image" src="https://github.com/user-attachments/assets/de300bf5-dcdf-4028-bd36-41fba4ad0bc0" />
 
 ---
 
