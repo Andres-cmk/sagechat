@@ -1,7 +1,46 @@
 import { Logout } from "./Logout";
 import { formatDateHour } from "../helpers/format";
+import { useChat } from "../context/ChatContext";
+import { type Contact } from "../types/contact";
 
 export const PanelUsers = () => {
+
+    const { selectedChat, setSelectedChat } = useChat();
+
+    const contacts: Contact[] = [
+        { 
+            id: '1', 
+            name: 'Sarah Miller', 
+            message: 'Can you send me the files?', 
+            time: formatDateHour(new Date()), 
+            active: true, 
+            avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAZG9DJzbjfqSHkm-KNZF7odJd2MCR5s53SLHsZrZ3yQndQqvMykhFg7z6p6jYqIpW4LWMDSlkUlw-7BlDVs65_aCqr0pKtkYtHeww_JXfd1tqA7ZwgbK-j3TJ0aP01qqqYHyOzCIbTvLbo6tYOZf9OY-T5cJ970L9cDn6XRtmC3bBALZ8z1iqM68ACae8d5l0FAfGkPlkC2reaSHRvNhgN6T77PskZ6PG7m_5M3W5LsHnUiY9KgDxYf2iD27BwhRmZDZSIA0J3yp6G'
+        },
+        { 
+            id: '2', 
+            name: 'David Chen', 
+            message: 'Meeting rescheduled to 3PM.', 
+            time: formatDateHour(new Date()), 
+            active: false, 
+            avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAAYQ0nudiWoC8nY_n8leWppKewcq1kQO3XvawXtMjdmus_VINMeP834YzqlAuSBtTtRX_7k_uS8At2947d58tcOmdM4W4ukBPzbHyohnPFJo5E-B3uGY8Ymg3RLmZ09nVkNQs0J7XwxZ4RTzXNOrGcbhVomlNlBmrhEMt2fV_v2wYI02XX_qWQfchKl_0IVoGOd59ndRnzGlurxTQutCucBrOuOHhvi4bliSO6_LPROcjvWU_agXn2IIUjB33qe7aKOesAagL1fpkd'
+        },
+        { 
+            id: '3', 
+            name: 'Marcus Johnson', 
+            message: 'Thanks for the update!', 
+            time: 'Tue', 
+            active: false, 
+            avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuD1P-3yTair5I69YBI-H-nDLSaZY0sj7DyvQOWBhlM-D_VvZZ8l7ec_L2KM12qMGh5ATE5aZ9C2m5indRycYr60Q2MRNH5-4FGz3Qc7FJbbcJDWuIH9LFrW-yp1FooM4XQbygph532Zs8F_AIKkPms02hqFw1fPXZrsCyf7GkSq7PSW7i1vZEf9QpxVW2FJbEgddYXthdvoFO5syxIOm4wSi_-ySDKNAo8K-csipJxsJSz__IocilyzWlx-HmFA4G2IcLnmgxPhihe_'
+        },
+        { 
+            id: '4', 
+            name: 'Emma Wilson', 
+            message: 'Great work on the design.', 
+            time: 'Mon', 
+            active: false, 
+            avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuD6F1S4cA3MBZBDKBghLgHKLl5RfmHqOh5mpl-Q-ExLzLiUl6itrrEhEt76Gox0PV7aVPSl2MNMjQ6DlSblgERJ4jJyu_QwDBwyM4bVOlQowoo3_VJFmvZIdtJiUUVMZ_Vp6OtvW75tX99jrtXhaGRBkC3vIjjDg5dGGiNYRjBDxP3szYMuXQzhFNKfaEumV5W2Xi74BV9Ui5zJ-2dV0UT2-29GqXT4BFuGqdOuzb2ZMuHI7Y61UOUQcSMc17R6SOtBZoshaeJsAUKD'
+        }
+    ];
 
     return (
         <aside className="w-80 flex-col border-r border-slate-200 bg-sidebar-light transition-colors duration-200 hidden md:flex">
@@ -38,7 +77,14 @@ export const PanelUsers = () => {
                 <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider px-2 mb-2 mt-4">
                     Ahora
                 </p>
-                <button className="w-full flex items-center gap-3 p-3 rounded-2xl bg-white shadow-sm border border-slate-100 transition-all group">
+                <button 
+                    onClick={() => setSelectedChat(contacts[0])}
+                    className={`w-full flex items-center gap-3 p-3 rounded-2xl transition-all group ${
+                        selectedChat?.id === '1' 
+                            ? 'bg-accent shadow-sm border border-primary/20' 
+                            : 'bg-white shadow-sm border border-slate-100 hover:bg-accent/50'
+                    }`}
+                >
                     <div className="relative">
                         <img
                             alt="Sarah Avatar"
@@ -64,7 +110,13 @@ export const PanelUsers = () => {
                 <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider px-2 mb-2 mt-6">
                     Recientes
                 </p>
-                <button className="w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-white/60 transition-colors">
+                <button 
+                    onClick={() => setSelectedChat(contacts[1])}
+                    className={`w-full flex items-center gap-3 p-3 rounded-2xl transition-all ${
+                        selectedChat?.id === '2' 
+                            ? 'bg-accent shadow-sm border border-primary/20' 
+                            : 'hover:bg-white/60'
+                    }`}>
                     <div className="relative">
                         <img
                             alt="David Avatar"
@@ -85,7 +137,13 @@ export const PanelUsers = () => {
                     </div>
                 </button>
 
-                <button className="w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-white/60 transition-colors">
+                <button 
+                    onClick={() => setSelectedChat(contacts[2])}
+                    className={`w-full flex items-center gap-3 p-3 rounded-2xl transition-all ${
+                        selectedChat?.id === '3' 
+                            ? 'bg-accent shadow-sm border border-primary/20' 
+                            : 'hover:bg-white/60'
+                    }`}>
                     <div className="relative">
                         <img
                             alt="Marcus Avatar"
@@ -110,7 +168,13 @@ export const PanelUsers = () => {
                     </div>
                 </button>
 
-                <button className="w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-white/60 transition-colors">
+                <button 
+                    onClick={() => setSelectedChat(contacts[3])}
+                    className={`w-full flex items-center gap-3 p-3 rounded-2xl transition-all ${
+                        selectedChat?.id === '4' 
+                            ? 'bg-accent shadow-sm border border-primary/20' 
+                            : 'hover:bg-white/60'
+                    }`}>
                     <div className="relative">
                         <img
                             alt="Emma Avatar"

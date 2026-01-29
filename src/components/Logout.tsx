@@ -5,7 +5,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 
 export const Logout = () => {
 
-    const [user, loading]: any = useAuthState(auth);
+    const [user, _]: any = useAuthState(auth);
 
     const navigate: any = useNavigate();
     return (

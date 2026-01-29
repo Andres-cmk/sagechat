@@ -4,10 +4,14 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { PanelUsers } from "./PanelUsers";
 import { Message } from "./Message";
+import { EmptyChat } from "./EmptyChat";
+import { useChat } from "../context/ChatContext";
+
 
 export const Chat = () => {
   const [user, loading]: any = useAuthState(auth);
   const navigate: any = useNavigate();
+  const { selectedChat } = useChat();
 
   useEffect(() => {
     // Si no hay usuario, redirigir al login
@@ -18,8 +22,11 @@ export const Chat = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-mint-light flex items-center justify-center">
-        <p>Cargando...</p>
+      <div className="h-screen w-screen flex items-center justify-center bg-background-light">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+          <p className="text-slate-500">Cargando...</p>
+        </div>
       </div>
     );
   }
@@ -32,7 +39,7 @@ export const Chat = () => {
     <div className="bg-background-light text-slate-800 h-screen w-screen overflow-hidden">
       <div className="flex h-full w-full" >
         <PanelUsers />
-        <Message />
+        {selectedChat ? <Message /> : <EmptyChat />}
       </div>
     </div>
   );
