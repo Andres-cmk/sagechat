@@ -3,6 +3,8 @@ import { addDoc, collection, serverTimestamp, query, orderBy, onSnapshot } from 
 import { db, auth } from "../services/firebase";
 import { useChat } from "../context/ChatContext";
 import { formatDateHour } from "../helpers/format";
+import EmojiPicker, { type EmojiClickData } from "emoji-picker-react";
+import es from 'emoji-picker-react/dist/data/emojis-es'; // Spanish
 
 
 export const Message = () => {
@@ -10,6 +12,7 @@ export const Message = () => {
     const [message, setMessage]: any = useState("");
     const { selectedChat } = useChat();
     const [messagesCollection, setMessages] = useState<any>([]);
+    const [showEmojiPicker, setShowEmojiPicker] = useState(false);
 
     const sendMessage = async (e: any) => {
         
@@ -42,6 +45,9 @@ export const Message = () => {
         setMessage("");
     }
 
+    const onEmojiClick = (emojiData: EmojiClickData) => {
+        setMessage((prevMessage: string) => prevMessage + emojiData.emoji);
+    };
 
     // Traer los mensaje en tiempo real.
 
@@ -142,7 +148,14 @@ export const Message = () => {
 
             {/* Message Input */}
             <div className="p-10 bg-white backdrop-blur-sm z-10">
-                <form className="flex items-end gap-3 max-w-4xl mx-auto" onSubmit={sendMessage}>
+                <form className="flex items-end gap-3 max-w-4xl mx-auto relative" onSubmit={sendMessage}>
+                    {/* Emoji Picker */}
+                    {showEmojiPicker && (
+                        <div className="absolute bottom-full mb-2 right-20">
+                            <EmojiPicker onEmojiClick={onEmojiClick} emojiData={es} />
+                        </div>
+                    )}
+                    
                     <div className="flex-1 bg-white shadow-sm rounded-3xl p-2 flex items-center border border-slate-200 focus-within:ring-2 focus-within:ring-primary/50 focus-within:border-primary transition-all">
                         {/* <button className="p-2 text-slate-400 hover:text-primary transition-colors rounded-full hover:bg-slate-50">
                             <span className="material-icons-round text-2xl">add_circle</span>
@@ -155,11 +168,16 @@ export const Message = () => {
                             value={message}
                             onChange={ e => setMessage(e.target.value)}
                         />
-                        <button type="submit" className="p-2 text-slate-400 hover:text-yellow-500 transition-colors rounded-full hover:bg-slate-50">
+                        <button 
+                            type="button"
+                            onClick={() => setShowEmojiPicker(!showEmojiPicker)}
+                            className="p-2 text-slate-400 hover:text-yellow-500 transition-colors rounded-full hover:bg-slate-50"
+                        >
                             <span className="material-icons-round text-xl">emoji_emotions</span>
                         </button>
                     </div>
                     <button type="submit" className="h-14 w-14 bg-primary hover:bg-primary-hover text-white rounded-2xl shadow-lg shadow-primary/30 flex items-center justify-center transition-transform active:scale-95 group">
+                    
                         <span className="material-icons-round text-2xl group-hover:translate-x-0.5 transition-transform">
                             send
                         </span>
