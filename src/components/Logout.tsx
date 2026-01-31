@@ -30,7 +30,7 @@ export const Logout = () => {
             <button
               className="p-2 text-slate-400 hover:text-primary transition-colors hover:bg-slate-100 rounded-lg"
             >
-              <span className="material-icons-round text-xl">settings</span>
+              {/* <span className="material-icons-round text-xl">settings</span> */}
             </button>
           </div>
           <button

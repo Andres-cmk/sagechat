@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
-import { addDoc, collection, serverTimestamp, query, orderBy, onSnapshot, setDoc, doc } from "firebase/firestore";
+import { addDoc, collection, serverTimestamp, query, orderBy, onSnapshot, setDoc, doc, getDoc } from "firebase/firestore";
 import { db, auth } from "../services/firebase";
 import { useChat } from "../context/ChatContext";
 import { formatDateHour } from "../helpers/format";
 import EmojiPicker, { type EmojiClickData } from "emoji-picker-react";
 import es from 'emoji-picker-react/dist/data/emojis-es'; // Spanish
 
+interface MessageProps {
+    onMenuClick: () => void;
+}
 
-export const Message = () => {
+export const Message = ({ onMenuClick }: MessageProps) => {
 
     const [message, setMessage]: any = useState<string>("");
     const { selectedChat } = useChat();
@@ -65,6 +68,20 @@ export const Message = () => {
             updatedAt: serverTimestamp()                   // Última actualización
         }, { merge: true });
 
+        // Agregar automáticamente el contacto al destinatario si no lo tiene
+        const recipientContactRef = doc(db, "users", selectedChat.id, "contacts", uid);
+        const recipientContactSnap = await getDoc(recipientContactRef);
+        
+        if (!recipientContactSnap.exists()) {
+            // El destinatario no tiene al remitente en sus contactos, agregarlo
+            await setDoc(recipientContactRef, {
+                email: user.email,
+                name: displayName,
+                photoURL: photoURL,
+                addedAt: serverTimestamp()
+            });
+        }
+
         setMessage("");
     }
 
@@ -111,7 +128,10 @@ export const Message = () => {
             {/* Header */}
             <header className="h-20 px-6 border-b border-slate-100 flex items-center justify-between bg-background-light backdrop-blur-md sticky top-0 z-10">
                 <div className="flex items-center gap-4">
-                    <button className="md:hidden text-slate-500">
+                    <button 
+                        onClick={onMenuClick}
+                        className="md:hidden text-slate-500 hover:text-primary transition-colors p-2 rounded-lg hover:bg-white/80"
+                    >
                         <span className="material-icons-round">menu</span>
                     </button>
                     <div>
@@ -119,9 +139,6 @@ export const Message = () => {
                             {selectedChat?.name || 'Usuario'}
                             {selectedChat?.active && <span className="w-2 h-2 rounded-full bg-green-500"></span>}
                         </h2>
-                        <p className="text-xs text-slate-500">
-                            {selectedChat?.active ? 'Active now' : 'Offline'}
-                        </p>
                     </div>
                 </div>
                 <div className="flex items-center gap-3">

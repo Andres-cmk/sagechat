@@ -1,7 +1,7 @@
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../services/firebase";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { PanelUsers } from "./PanelUsers";
 import { Message } from "./Message";
 import { EmptyChat } from "./EmptyChat";
@@ -12,6 +12,7 @@ export const Chat = () => {
   const [user, loading]: any = useAuthState(auth);
   const navigate: any = useNavigate();
   const { selectedChat } = useChat();
+  const [showSidebar, setShowSidebar] = useState(false);
 
   useEffect(() => {
     // Si no hay usuario, redirigir al login
@@ -37,9 +38,20 @@ export const Chat = () => {
 
   return (
     <div className="bg-background-light text-slate-800 h-screen w-screen overflow-hidden">
-      <div className="flex h-full w-full" >
-        <PanelUsers />
-        {selectedChat ? <Message /> : <EmptyChat />}
+      <div className="flex h-full w-full relative" >
+        {/* Overlay para cerrar el sidebar en móvil */}
+        {showSidebar && (
+          <div 
+            className="fixed inset-0 bg-black/50 z-40 md:hidden"
+            onClick={() => setShowSidebar(false)}
+          />
+        )}
+        
+        {/* Panel de usuarios */}
+        <PanelUsers showSidebar={showSidebar} onClose={() => setShowSidebar(false)} />
+        
+        {/* Área de mensajes */}
+        {selectedChat ? <Message onMenuClick={() => setShowSidebar(true)} /> : <EmptyChat onMenuClick={() => setShowSidebar(true)} />}
       </div>
     </div>
   );
