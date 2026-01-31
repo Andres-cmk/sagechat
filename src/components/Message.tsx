@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { addDoc, collection, serverTimestamp, query, orderBy, onSnapshot } from "firebase/firestore";
+import { addDoc, collection, serverTimestamp, query, orderBy, onSnapshot, setDoc, doc } from "firebase/firestore";
 import { db, auth } from "../services/firebase";
 import { useChat } from "../context/ChatContext";
 import { formatDateHour } from "../helpers/format";
@@ -9,10 +9,15 @@ import es from 'emoji-picker-react/dist/data/emojis-es'; // Spanish
 
 export const Message = () => {
 
-    const [message, setMessage]: any = useState("");
+    const [message, setMessage]: any = useState<string>("");
     const { selectedChat } = useChat();
     const [messagesCollection, setMessages] = useState<any>([]);
-    const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+    const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
+    
+    const generateChatId = (uid1: string, uid2: string) => {
+        return [uid1, uid2].sort().join("_");
+    };
+
 
     const sendMessage = async (e: any) => {
         
@@ -32,15 +37,33 @@ export const Message = () => {
             return;
         }
 
-        const { uid, displayName, photoURL } = user;
+        if (!selectedChat) {
+            console.error("No hay chat seleccionado");
+            return;
+        }
 
-        await addDoc(collection(db, "default"), {
+        const { displayName, uid, photoURL } = user;
+
+        const chatId = generateChatId(user.uid, selectedChat.id);  
+
+        await addDoc(collection(db, "chats", chatId, "messages"), {
             text: message,
             name: displayName,
             uid: uid,
             photo: photoURL,
-            createdAt: serverTimestamp()
+            createdAt: serverTimestamp(),  // Servidor (null temporalmente)
+            localTimestamp: Date.now()     // Local (disponible inmediatamente) ← AGREGAR
         });
+
+
+        
+        await setDoc(doc(db, "chats", chatId), {
+            participants: [uid, selectedChat.id],          // Quiénes participan
+            lastMessage: message,                          // Último mensaje enviado
+            lastMessageTime: serverTimestamp(),            // Cuándo fue enviado
+            lastMessageSender: uid,                        // Quién lo envió
+            updatedAt: serverTimestamp()                   // Última actualización
+        }, { merge: true });
 
         setMessage("");
     }
@@ -51,15 +74,32 @@ export const Message = () => {
 
     // Traer los mensaje en tiempo real.
 
-    useEffect( () => {
-        const q = query(collection(db, "default"), orderBy("createdAt", "asc"));
+    useEffect(() => {
+    if (!selectedChat) return;
 
-        const unsubscribe = onSnapshot(q, (querySnapshot) => {
-            const msgs: any[] = [];
-            querySnapshot.forEach((doc) => {
-                msgs.push({ id: doc.id, ...doc.data() });
-            });
-            setMessages(msgs);
+    const user = auth.currentUser;
+
+    if (!user) {
+
+        console.error("Usuario no autenticado"); 
+        return;
+    }
+
+    // Generar el ID del chat
+    const chatId = generateChatId(user.uid, selectedChat.id);
+
+    // Query a la subcolección de mensajes de este chat específico
+    const q = query(
+        collection(db, "chats", chatId, "messages"), 
+        orderBy("createdAt", "asc")
+    );
+
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+        const msgs: any[] = [];
+        querySnapshot.forEach((doc) => {
+            msgs.push({ id: doc.id, ...doc.data() });
+        });
+        setMessages(msgs);
     });
 
         return () => unsubscribe();
@@ -133,8 +173,8 @@ export const Message = () => {
                                 </div>
                                 
                                 {/* Hora del mensaje */}
-                                <span className={`text-xs text-slate-400 px-1 ${isCurrentUser ? 'text-right mag mr-2' : 'text-left ml-2'}`}>
-                                    {msg.createdAt && msg.createdAt.toDate 
+                                <span className="text-xs text-slate-400 px-1">
+                                    {msg.createdAt?.toDate 
                                         ? formatDateHour(msg.createdAt.toDate()) 
                                         : msg.localTimestamp
                                             ? formatDateHour(new Date(msg.localTimestamp))
