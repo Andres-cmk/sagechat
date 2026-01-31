@@ -2,23 +2,29 @@ export const formatDateHour = (date: Date) => {
     const now = new Date();
     const messageDate = new Date(date);
     
+    // Normalizar fechas a medianoche para comparación precisa
+    const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const messageDateStart = new Date(messageDate.getFullYear(), messageDate.getMonth(), messageDate.getDate());
+    
     // Calcular diferencia en días
-    const diffInMs = now.getTime() - messageDate.getTime();
+    const diffInMs = todayStart.getTime() - messageDateStart.getTime();
     const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
     
-    // Si es hoy
-    if (diffInDays === 0 && now.toDateString() === messageDate.toDateString()) {
-        const optionsFormat: Intl.DateTimeFormatOptions = {
+
+    
+    const optionsFormat: Intl.DateTimeFormatOptions = {
             hour: '2-digit',
             minute: '2-digit',
             hour12: true,
         };
+    // Si es hoy
+    if (diffInDays === 0) {
         return new Intl.DateTimeFormat('en-US', optionsFormat).format(messageDate);
     }
     
     // Si fue ayer
     if (diffInDays === 1) {
-        return 'Yesterday';
+        return `${'Yesterday'} ${new Intl.DateTimeFormat('en-US', optionsFormat).format(messageDate)}`;
     }
     
     // Si fue esta semana (últimos 7 días)
