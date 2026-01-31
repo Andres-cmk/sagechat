@@ -48,9 +48,9 @@ Sidebar: #EBF5F1     /* Light Mint */
    ```
 
 3. **Configura Firebase**
-   
-   Crea un archivo en la carpeta services y completa:
-   ```env
+
+Crea un archivo en la carpeta services y completa:
+   ```
 const firebaseConfig = {
     apiKey: "",
     authDomain: "",
