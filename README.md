@@ -47,26 +47,12 @@ Sidebar: #EBF5F1     /* Light Mint */
    npm install
    ```
 
-3. **Configura Firebase**
-
-Crea un archivo en la carpeta services y completa:
-   ```
-const firebaseConfig = {
-    apiKey: "",
-    authDomain: "",
-    projectId: "chat-app-8a678",
-    storageBucket: "",
-    messagingSenderId: "",
-    appId: ""
-};
-   ```
-
-4. **Inicia el servidor de desarrollo**
+3. **Inicia el servidor de desarrollo**
    ```bash
    npm run dev
    ```
 
-5. **Abre tu navegador en** `http://localhost:5173`
+4. **Abre tu navegador en** `http://localhost:5173`
 
 ## 📦 Scripts Disponibles
 
@@ -180,4 +166,3 @@ Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más det
 ---
 
 ⭐ Si te gusta este proyecto, dale una estrella en GitHub!
-import reactDom from 'eslint-plugin-react-dom'
