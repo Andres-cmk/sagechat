@@ -49,14 +49,16 @@ Sidebar: #EBF5F1     /* Light Mint */
 
 3. **Configura Firebase**
    
-   Crea un archivo `.env` en la raíz del proyecto:
+   Crea un archivo en la carpeta services y completa:
    ```env
-   VITE_FIREBASE_API_KEY=tu_api_key
-   VITE_FIREBASE_AUTH_DOMAIN=tu_auth_domain
-   VITE_FIREBASE_PROJECT_ID=tu_project_id
-   VITE_FIREBASE_STORAGE_BUCKET=tu_storage_bucket
-   VITE_FIREBASE_MESSAGING_SENDER_ID=tu_sender_id
-   VITE_FIREBASE_APP_ID=tu_app_id
+const firebaseConfig = {
+    apiKey: "",
+    authDomain: "",
+    projectId: "chat-app-8a678",
+    storageBucket: "",
+    messagingSenderId: "",
+    appId: ""
+};
    ```
 
 4. **Inicia el servidor de desarrollo**
