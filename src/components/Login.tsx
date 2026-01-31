@@ -1,8 +1,9 @@
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { auth } from "../services/firebase";
+import { auth, db } from "../services/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { doc, setDoc, serverTimestamp } from "firebase/firestore";
 
 
 export const Login = () => {
@@ -28,6 +29,17 @@ export const Login = () => {
             const provider = new GoogleAuthProvider();
             const result = await signInWithPopup(auth, provider);
             console.log("Login successful:", result.user);
+            
+            // Guardar usuario en Firestore (si no existe, no sobrescribe)
+            await setDoc(doc(db, "users", result.user.uid), {
+                email: result.user.email,
+                name: result.user.displayName,
+                photoURL: result.user.photoURL,
+                createdAt: serverTimestamp(),
+                lastLogin: serverTimestamp()
+            }, { merge: true });
+
+            
         } catch (error) {
             console.error("Error during login:", error);
         }
@@ -80,10 +92,10 @@ export const Login = () => {
         </div>
 
         <h1 className="text-2xl font-bold text-slate-800 mb-2 tracking-tight">
-          Bienvenido a SageChat
+          Welcome to SageChat
         </h1>
         <p className="text-slate-500 mb-10 font-medium">
-          Por favor, inicia sesión para continuar
+          Please sign in to continue
         </p>
         <button className="w-full bg-white text-slate-700 font-medium py-3.5 px-4 rounded-xl shadow-sm hover:shadow-md hover:bg-slate-50 transition-all duration-200 flex items-center justify-center gap-3 border border-mint-border group btn-google" 
             
@@ -111,7 +123,7 @@ export const Login = () => {
               fill="#EA4335"
             ></path>
           </svg>
-          Iniciar sesión con Google
+          Sign in with Google
         </button>
         <div className="mt-8 flex items-center justify-center gap-4 text-xs text-slate-400">
           <a className="hover:text-primary transition-colors" href="#">
